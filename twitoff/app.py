@@ -1,7 +1,11 @@
+from os import getenv
 from flask import Flask, render_template, request
+from dotenv import load_dotenv
 from .db_model import db, User
-from .twitter import add_user_tweepy
+from .twitter import add_user_tweepy, update_all_users
 from .predict import predict_user
+
+load_dotenv()
 
 def create_app():
     '''Create and configure an instance of the Flask application'''
@@ -46,7 +50,11 @@ def create_app():
             
         return render_template('prediction.html', title='Prediction', message=message)
     
-    
+    @app.route('/update', methods=['GET'])
+    def update():
+        update_all_users()
+        return render_template('base.html', title='All Tweets Updated!', users=User.query.all())
+
     return app
 
 
