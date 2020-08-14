@@ -128,5 +128,5 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-#Sqlite
-.sqlite
+#Ignore Sqlite DB
+*.sqlite
